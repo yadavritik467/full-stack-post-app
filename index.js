@@ -33,7 +33,7 @@ app.use("/auth",userRouter)
 app.use("/status",statusRouter)
 
 app.get('/', (req, res) => {
-    console.log("working")
+    res.send("working")
   });
 // app.get("/",(req,res)=>{
 //     console.log("working")
