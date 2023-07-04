@@ -11,12 +11,14 @@ router.get('/get', async (req,res)=>{
   } )
 
 router.post("/register", async (req, res) => {
-    const { name, email,password,cpassword } = req.body
 
     try {
-       const user = await User({
-        name, email,password,cpassword
-       })
+        const { name, email, password, cpassword} = req.body
+        const existingUser = await User.findOne({ email:email })
+        if (existingUser) {
+            return res.status(500).json({ message: "this email is already in user", existingUser })
+        }
+
        if(user.password !== user.cpassword){
         res.status(500).json({message:"password mismatch"})
        }else{
